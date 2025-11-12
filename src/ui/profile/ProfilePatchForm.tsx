@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm } from "@tanstack/react-form";
+import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";
 import type { FC } from "react";
 import { useProfilePatchMutation } from "@/lib/mutation/useProfilePatchMutation";
@@ -21,7 +22,12 @@ export const ProfilePatchForm: FC<ProfilePatchForm.Props> = ({
 	const profilePatchMutation = useProfilePatchMutation();
 
 	const form = useForm({
-		defaultValues,
+		defaultValues: {
+			...defaultValues,
+			birthday: DateTime.fromISO(defaultValues.birthday).toFormat(
+				"yyyy-MM-dd",
+			),
+		},
 		validators: {
 			onSubmit: ProfilePatchSchema,
 		},
@@ -97,11 +103,9 @@ export const ProfilePatchForm: FC<ProfilePatchForm.Props> = ({
 								{...props}
 								id={field.name}
 								type="date"
-								value={field.state.value?.toISOString() ?? ""}
+								value={field.state.value ?? ""}
 								onChange={(event) => {
-									field.handleChange(
-										new Date(event.target.value),
-									);
+									field.handleChange(event.target.value);
 								}}
 								onBlur={() => field.handleBlur()}
 							/>

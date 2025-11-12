@@ -29,17 +29,29 @@ export const actionProfilePatch = async (input: ProfilePatchSchema.Type) => {
 		} as const;
 	}
 
-	await prisma.userProfile.update({
-		where: {
-			userId: session.user.id,
-		},
-		data: {
-			...patch.data,
-			birthday: patch.data.birthday
-				? new Date(patch.data.birthday)
-				: undefined,
-		},
-	});
+	try {
+		await prisma.userProfile.update({
+			where: {
+				userId: session.user.id,
+			},
+			data: {
+				...patch.data,
+				birthday: patch.data.birthday
+					? new Date(patch.data.birthday)
+					: undefined,
+			},
+		});
+	} catch {
+		await prisma.userProfile.create({
+			data: {
+				userId: session.user.id,
+				name: patch.data.name,
+				surname: patch.data.surname,
+				birthday: new Date(patch.data.birthday),
+				bio: patch.data.bio,
+			},
+		});
+	}
 
 	revalidatePath("/user/profile");
 

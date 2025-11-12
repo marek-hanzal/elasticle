@@ -21,7 +21,12 @@ export const auth = betterAuth({
 			return {
 				user: {
 					...user,
-					profile,
+					profile: profile
+						? {
+								...profile,
+								birthday: profile.birthday.toISOString(),
+							}
+						: undefined,
 				},
 				session,
 			};

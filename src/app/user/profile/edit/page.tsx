@@ -65,7 +65,15 @@ export default async function ProfileEditPage() {
 				Update your personal details and keep your profile information
 				up to date.
 			</div>
-			<ProfilePatchForm defaultValues={session.user.profile ?? {}} />
+			<ProfilePatchForm
+				defaultValues={
+					session.user.profile ?? {
+						name: "",
+						surname: "",
+						birthday: "",
+					}
+				}
+			/>
 		</div>
 	);
 }

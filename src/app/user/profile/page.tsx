@@ -51,9 +51,9 @@ export default async function ProfilePage() {
 		{
 			label: "Birthdate",
 			value: profile?.birthday
-				? DateTime.fromJSDate(profile.birthday)
+				? DateTime.fromISO(profile.birthday)
 						.setLocale(locale)
-						.toLocaleString(DateTime.DATE_FULL)
+						.toLocaleString(DateTime.DATE_SHORT)
 				: "—",
 		},
 	];
