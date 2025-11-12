@@ -136,21 +136,9 @@ export const ProfilePatchForm: FC<ProfilePatchForm.Props> = ({
 										field.handleChange(
 											event.target.files?.[0] ?? null,
 										);
-										event.target.value = "";
 									}}
 									onBlur={() => field.handleBlur()}
 								/>
-
-								{field.state.value ? (
-									<div
-										className={tvc([
-											"text-xs",
-											"text-zinc-500",
-										])}
-									>
-										{field.state.value.name}
-									</div>
-								) : null}
 							</div>
 						)}
 						field={field}

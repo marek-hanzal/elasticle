@@ -55,6 +55,10 @@ export namespace LoginSchema {
 
 Then you can just export `LoginSchema` and you're ok, same for usage `LoginSchema.Type` and tadaa, you've types.
 
+## Uploads
+
+Uploads are using my CDN and s3 bucket, but are naive (no checks for file size nor it's type), just for time sake.
+
 
 ## Styling
 
