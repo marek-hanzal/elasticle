@@ -45,10 +45,8 @@ export const actionProfilePatch = async (input: ProfilePatchSchema.Type) => {
 		await prisma.userProfile.create({
 			data: {
 				userId: session.user.id,
-				name: patch.data.name,
-				surname: patch.data.surname,
+				...patch.data,
 				birthday: new Date(patch.data.birthday),
-				bio: patch.data.bio,
 			},
 		});
 	}
