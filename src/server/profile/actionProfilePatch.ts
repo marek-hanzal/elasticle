@@ -31,11 +31,13 @@ export const actionProfilePatch = async (input: ProfilePatchSchema.Type) => {
 
 	await prisma.userProfile.update({
 		where: {
-			id: session.user.id,
+			userId: session.user.id,
 		},
 		data: {
-			...patch,
-			birthday: new Date(patch.data.birthday),
+			...patch.data,
+			birthday: patch.data.birthday
+				? new Date(patch.data.birthday)
+				: undefined,
 		},
 	});
 
