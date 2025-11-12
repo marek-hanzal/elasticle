@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import type { PropsWithChildren } from "react";
 import { auth } from "@/lib/auth";
 import { tvc } from "@/lib/tvc";
+import { LogoutButton } from "@/ui/user/LogoutButton";
 
 export default async function UserLayout({ children }: PropsWithChildren) {
 	const session = await auth.api.getSession({
@@ -45,21 +46,34 @@ export default async function UserLayout({ children }: PropsWithChildren) {
 				>
 					<div
 						className={tvc([
-							"text-sm",
-							"uppercase",
-							"tracking-wide",
-							"text-zinc-500",
+							"flex",
+							"items-start",
+							"justify-between",
+							"gap-4",
 						])}
 					>
-						User Area
-					</div>
-					<div
-						className={tvc([
-							"text-3xl",
-							"font-semibold",
-						])}
-					>
-						Account Overview
+						<div>
+							<div
+								className={tvc([
+									"text-sm",
+									"uppercase",
+									"tracking-wide",
+									"text-zinc-500",
+								])}
+							>
+								User Area
+							</div>
+							<div
+								className={tvc([
+									"text-3xl",
+									"font-semibold",
+								])}
+							>
+								Account Overview
+							</div>
+						</div>
+
+						<LogoutButton />
 					</div>
 					<div
 						className={tvc([

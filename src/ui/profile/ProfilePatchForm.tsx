@@ -6,6 +6,7 @@ import type { FC } from "react";
 import { useProfilePatchMutation } from "@/lib/mutation/useProfilePatchMutation";
 import { ProfilePatchSchema } from "@/lib/schema/ProfilePatchSchema";
 import { tvc } from "@/lib/tvc";
+import { FormField } from "@/ui/form/FormField";
 
 export namespace ProfilePatchForm {
 	export interface Props {
@@ -47,168 +48,63 @@ export const ProfilePatchForm: FC<ProfilePatchForm.Props> = ({
 		>
 			<Field name="name">
 				{(field) => (
-					<div
-						className={tvc([
-							"space-y-2",
-						])}
-					>
-						<label
-							className={tvc([
-								"text-sm",
-								"font-medium",
-							])}
-							htmlFor={field.name}
-						>
-							Name
-						</label>
-						<input
-							id={field.name}
-							className={tvc([
-								"w-full",
-								"rounded-xl",
-								"border",
-								"border-zinc-200",
-								"bg-white",
-								"px-4",
-								"py-2",
-								"text-sm",
-								"text-zinc-900",
-								"outline-none",
-								"transition",
-								"focus:border-zinc-400",
-								"focus:ring-2",
-								"focus:ring-zinc-200",
-							])}
-							value={field.state.value}
-							onChange={(event) => {
-								field.handleChange(event.target.value);
-							}}
-							onBlur={() => field.handleBlur()}
-							autoComplete="given-name"
-						/>
-						{field.state.meta.errors[0] ? (
-							<div
-								className={tvc([
-									"text-xs",
-									"text-red-500",
-								])}
-							>
-								{String(field.state.meta.errors[0].message)}
-							</div>
-						) : null}
-					</div>
+					<FormField
+						input={(props) => (
+							<input
+								id={field.name}
+								value={field.state.value}
+								onChange={(event) => {
+									field.handleChange(event.target.value);
+								}}
+								onBlur={() => field.handleBlur()}
+								autoComplete="given-name"
+								{...props}
+							/>
+						)}
+						field={field}
+					/>
 				)}
 			</Field>
 
 			<Field name="surname">
 				{(field) => (
-					<div
-						className={tvc([
-							"space-y-2",
-						])}
-					>
-						<label
-							className={tvc([
-								"text-sm",
-								"font-medium",
-							])}
-							htmlFor={field.name}
-						>
-							Surname
-						</label>
-						<input
-							id={field.name}
-							className={tvc([
-								"w-full",
-								"rounded-xl",
-								"border",
-								"border-zinc-200",
-								"bg-white",
-								"px-4",
-								"py-2",
-								"text-sm",
-								"text-zinc-900",
-								"outline-none",
-								"transition",
-								"focus:border-zinc-400",
-								"focus:ring-2",
-								"focus:ring-zinc-200",
-							])}
-							value={field.state.value}
-							onChange={(event) => {
-								field.handleChange(event.target.value);
-							}}
-							onBlur={() => field.handleBlur()}
-							autoComplete="family-name"
-						/>
-						{field.state.meta.errors[0] ? (
-							<div
-								className={tvc([
-									"text-xs",
-									"text-red-500",
-								])}
-							>
-								{String(field.state.meta.errors[0].message)}
-							</div>
-						) : null}
-					</div>
+					<FormField
+						input={(props) => (
+							<input
+								id={field.name}
+								value={field.state.value}
+								onChange={(event) => {
+									field.handleChange(event.target.value);
+								}}
+								onBlur={() => field.handleBlur()}
+								autoComplete="family-name"
+								{...props}
+							/>
+						)}
+						field={field}
+					/>
 				)}
 			</Field>
 
 			<Field name="birthday">
 				{(field) => (
-					<div
-						className={tvc([
-							"space-y-2",
-						])}
-					>
-						<label
-							className={tvc([
-								"text-sm",
-								"font-medium",
-							])}
-							htmlFor={field.name}
-						>
-							Birthdate
-						</label>
-						<input
-							id={field.name}
-							type="date"
-							className={tvc([
-								"w-full",
-								"rounded-xl",
-								"border",
-								"border-zinc-200",
-								"bg-white",
-								"px-4",
-								"py-2",
-								"text-sm",
-								"text-zinc-900",
-								"outline-none",
-								"transition",
-								"focus:border-zinc-400",
-								"focus:ring-2",
-								"focus:ring-zinc-200",
-							])}
-							value={field.state.value?.toISOString() ?? ""}
-							onChange={(event) => {
-								field.handleChange(
-									new Date(event.target.value),
-								);
-							}}
-							onBlur={() => field.handleBlur()}
-						/>
-						{field.state.meta.errors[0] ? (
-							<div
-								className={tvc([
-									"text-xs",
-									"text-red-500",
-								])}
-							>
-								{String(field.state.meta.errors[0].message)}
-							</div>
-						) : null}
-					</div>
+					<FormField
+						input={(props) => (
+							<input
+								id={field.name}
+								type="date"
+								value={field.state.value?.toISOString() ?? ""}
+								onChange={(event) => {
+									field.handleChange(
+										new Date(event.target.value),
+									);
+								}}
+								onBlur={() => field.handleBlur()}
+								{...props}
+							/>
+						)}
+						field={field}
+					/>
 				)}
 			</Field>
 
