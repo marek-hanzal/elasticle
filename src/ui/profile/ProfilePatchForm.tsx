@@ -4,6 +4,7 @@ import { useForm } from "@tanstack/react-form";
 import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";
 import type { FC } from "react";
+import { toast } from "sonner";
 import { useProfilePatchMutation } from "@/lib/mutation/useProfilePatchMutation";
 import { ProfilePatchSchema } from "@/lib/schema/ProfilePatchSchema";
 import { tvc } from "@/lib/tvc";
@@ -32,11 +33,15 @@ export const ProfilePatchForm: FC<ProfilePatchForm.Props> = ({
 			onSubmit: ProfilePatchSchema,
 		},
 		async onSubmit({ value }) {
-			const result = await profilePatchMutation.mutateAsync(value);
+			const result = profilePatchMutation.mutateAsync(value);
+
+			toast.promise(result, {
+				loading: "Saving your profile…",
+				success: "Your profile has been saved.",
+				error: "Unable to save your profile. Please try again.",
+			});
 
 			router.push("/user/profile");
-
-			return result;
 		},
 	});
 
