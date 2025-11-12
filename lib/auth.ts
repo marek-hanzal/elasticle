@@ -1,6 +1,7 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies, toNextJsHandler } from "better-auth/next-js";
+import { customSession } from "better-auth/plugins";
 import prisma from "@/lib/prisma";
 
 export const auth = betterAuth({
@@ -10,6 +11,21 @@ export const auth = betterAuth({
 	}),
 	plugins: [
 		nextCookies(),
+		customSession(async ({ user, session }) => {
+			const profile = await prisma.userProfile.findFirst({
+				where: {
+					userId: user.id,
+				},
+			});
+
+			return {
+				user: {
+					...user,
+					profile,
+				},
+				session,
+			};
+		}),
 	],
 	emailAndPassword: {
 		enabled: true,

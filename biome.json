@@ -45,6 +45,11 @@
 		}
 	},
 	"files": {
-		"ignoreUnknown": true
+		"ignoreUnknown": true,
+		"includes": [
+			"**/*",
+			"!node_modules/",
+			"!.next/"
+		]
 	}
 }

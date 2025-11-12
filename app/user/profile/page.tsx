@@ -1,6 +1,62 @@
+import acceptLanguage from "accept-language";
+import type { SerializedEditor } from "lexical";
+import { DateTime } from "luxon";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
 import { tvc } from "@/lib/tvc";
+import { DetailItem } from "@/ui/DetailItem";
+import { PreviewEditor } from "@/ui/editor/PreviewEditor";
 
-export default function ProfilePage() {
+export default async function ProfilePage() {
+	const requestHeaders = await headers();
+	const session = await auth.api.getSession({
+		headers: requestHeaders,
+	});
+
+	/**
+	 * This should not be necessary, but Next does not have clever way how to
+	 * provide typed access to data (...hello, TanStack Router!).
+	 */
+	if (!session) {
+		return redirect("/public/login");
+	}
+
+	const {
+		user: { profile, ...user },
+	} = session;
+
+	const locale =
+		acceptLanguage.get(requestHeaders.get("accept-language") ?? "en") ??
+		"en";
+
+	const details: DetailItem.Props[] = [
+		{
+			label: "Nickname",
+			value: user.name,
+		},
+		{
+			label: "Email",
+			value: user?.email ?? "—",
+		},
+		{
+			label: "Name",
+			value: profile?.name ?? "—",
+		},
+		{
+			label: "Surname",
+			value: profile?.surname ?? "—",
+		},
+		{
+			label: "Birthdate",
+			value: profile?.birthday
+				? DateTime.fromJSDate(profile.birthday)
+						.setLocale(locale)
+						.toLocaleString(DateTime.DATE_FULL)
+				: "—",
+		},
+	];
+
 	return (
 		<div
 			className={tvc([
@@ -28,8 +84,7 @@ export default function ProfilePage() {
 						"text-zinc-600",
 					])}
 				>
-					This area will soon show the details of the currently
-					signed-in user.
+					Review and verify the data we have on file for your account.
 				</div>
 			</div>
 			<div
@@ -40,15 +95,36 @@ export default function ProfilePage() {
 				])}
 			>
 				<div>
-					We&apos;re starting with a simple placeholder. Connect this
-					page to your authentication logic to surface personal info
-					such as name, email and account status.
-				</div>
-				<div>
-					Need to expand? Consider adding tabs for settings, security
-					and billing inside this user route.
+					The information below reflects the details associated with
+					your account.
 				</div>
 			</div>
+			<div
+				className={tvc([
+					"grid",
+					"grid-cols-1",
+					"gap-4",
+					"sm:grid-cols-2",
+				])}
+			>
+				{details.map((detail) => (
+					<DetailItem
+						key={detail.label}
+						label={detail.label}
+						value={detail.value}
+					/>
+				))}
+			</div>
+
+			<PreviewEditor
+				namespace={"user.bio"}
+				placeholder={"Bio not filled"}
+				content={
+					profile?.bio
+						? (JSON.parse(profile.bio) as SerializedEditor)
+						: undefined
+				}
+			/>
 		</div>
 	);
 }
