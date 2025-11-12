@@ -19,6 +19,9 @@ Some notes:
 - Migrations are unresolved in general - this can be done e.g. in an CI/CD action with access to DB and running prisma or whatever solution you're used to (e.g. I'm using Kysely TS migrations, so I can run arbitrary code - for example data based migrations or seeds)
 - I18n - highly depends, what you like, I've custom stuff I don't want to pull here (I'm doing root redirect by locale provided by browser, e.g. / -> /cs)
 
+> I just want to say I've created a lot of stuff in quite a short time, so validations are weaker, somethings are create in a way I'll rather avoid, there are plenty of naive stuff (like "that just should work"), proper error handling is basically missing (e.g. usage of Effect server side to properly type and handle server-side errors).
+> Same goes for data invalidations, which are like "...does it work? ... maybe?"
+
 ## ~~React~~ Tanstack Query
 
 For me useful to handle mutations in general and co.
