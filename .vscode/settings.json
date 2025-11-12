@@ -5,7 +5,8 @@
 		"iconify",
 		"idrivee",
 		"luxon",
-		"tadaa"
+		"tadaa",
+		"treeify"
 	],
 	"editor.codeActionsOnSave": {
 		"source.organizeImports.biome": "always",

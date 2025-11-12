@@ -2,6 +2,7 @@ import acceptLanguage from "accept-language";
 import type { SerializedEditor } from "lexical";
 import { DateTime } from "luxon";
 import { headers } from "next/headers";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { tvc } from "@/lib/tvc";
@@ -72,11 +73,32 @@ export default async function ProfilePage() {
 			<div>
 				<div
 					className={tvc([
-						"text-2xl",
-						"font-semibold",
+						"flex",
+						"items-center",
+						"justify-between",
+						"gap-3",
 					])}
 				>
-					Profile
+					<div
+						className={tvc([
+							"text-2xl",
+							"font-semibold",
+						])}
+					>
+						Profile
+					</div>
+					<Link
+						className={tvc([
+							"text-sm",
+							"font-medium",
+							"text-blue-600",
+							"hover:text-blue-500",
+							"transition",
+						])}
+						href={"/user/profile/edit"}
+					>
+						Edit profile
+					</Link>
 				</div>
 				<div
 					className={tvc([

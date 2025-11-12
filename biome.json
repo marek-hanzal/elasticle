@@ -47,9 +47,14 @@
 	"files": {
 		"ignoreUnknown": true,
 		"includes": [
-			"**/*",
-			"!node_modules/",
-			"!.next/"
+			"src/**",
+			"package.json",
+			"tsconfig.json",
+			"biome.json",
+			"eslint.config.mjs",
+			"prisma.config.ts",
+			"tailwind.config.ts",
+			"postcss.config.mjs"
 		]
 	}
 }
