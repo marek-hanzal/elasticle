@@ -49,8 +49,10 @@ export const ProfilePatchForm: FC<ProfilePatchForm.Props> = ({
 			<Field name="name">
 				{(field) => (
 					<FormField
+						label="Name"
 						input={(props) => (
 							<input
+								{...props}
 								id={field.name}
 								value={field.state.value}
 								onChange={(event) => {
@@ -58,7 +60,6 @@ export const ProfilePatchForm: FC<ProfilePatchForm.Props> = ({
 								}}
 								onBlur={() => field.handleBlur()}
 								autoComplete="given-name"
-								{...props}
 							/>
 						)}
 						field={field}
@@ -69,8 +70,10 @@ export const ProfilePatchForm: FC<ProfilePatchForm.Props> = ({
 			<Field name="surname">
 				{(field) => (
 					<FormField
+						label="Surname"
 						input={(props) => (
 							<input
+								{...props}
 								id={field.name}
 								value={field.state.value}
 								onChange={(event) => {
@@ -78,7 +81,6 @@ export const ProfilePatchForm: FC<ProfilePatchForm.Props> = ({
 								}}
 								onBlur={() => field.handleBlur()}
 								autoComplete="family-name"
-								{...props}
 							/>
 						)}
 						field={field}
@@ -89,8 +91,10 @@ export const ProfilePatchForm: FC<ProfilePatchForm.Props> = ({
 			<Field name="birthday">
 				{(field) => (
 					<FormField
+						label="Birthday"
 						input={(props) => (
 							<input
+								{...props}
 								id={field.name}
 								type="date"
 								value={field.state.value?.toISOString() ?? ""}
@@ -100,7 +104,6 @@ export const ProfilePatchForm: FC<ProfilePatchForm.Props> = ({
 									);
 								}}
 								onBlur={() => field.handleBlur()}
-								{...props}
 							/>
 						)}
 						field={field}

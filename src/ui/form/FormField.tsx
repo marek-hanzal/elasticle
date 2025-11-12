@@ -11,6 +11,7 @@ export namespace FormField {
 	}
 
 	export interface Props {
+		label: ReactNode;
 		input: Input.Fn;
 		field: {
 			name: string;
@@ -30,7 +31,11 @@ export namespace FormField {
 	}
 }
 
-export const FormField: FC<FormField.Props> = ({ input, field }) => {
+export const FormField: FC<FormField.Props> = ({ input, field, label }) => {
+	const errorMessage = field.state.meta.errors?.find(
+		(error) => error?.message,
+	)?.message;
+
 	return (
 		<div
 			className={tvc([
@@ -44,7 +49,7 @@ export const FormField: FC<FormField.Props> = ({ input, field }) => {
 				])}
 				htmlFor={field.name}
 			>
-				Name
+				{label}
 			</label>
 			{input({
 				className: tvc([
@@ -64,14 +69,14 @@ export const FormField: FC<FormField.Props> = ({ input, field }) => {
 					"focus:ring-zinc-200",
 				]),
 			})}
-			{field.state.meta.errors[0] ? (
+			{errorMessage ? (
 				<div
 					className={tvc([
 						"text-xs",
 						"text-red-500",
 					])}
 				>
-					{String(field.state.meta.errors[0].message)}
+					{errorMessage}
 				</div>
 			) : null}
 		</div>

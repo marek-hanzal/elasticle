@@ -7,6 +7,7 @@ import z from "zod";
 import { useRegisterMutation } from "@/lib/mutation/useRegisterMutation";
 import { RegisterSchema } from "@/lib/schema/RegisterSchema";
 import { tvc } from "@/lib/tvc";
+import { FormField } from "@/ui/form/FormField";
 
 /**
  * This schema is form related, so I'm just extending what I need here.
@@ -70,228 +71,92 @@ export default function RegisterPage() {
 			>
 				<Field name="name">
 					{(field) => (
-						<div
-							className={tvc([
-								"space-y-2",
-							])}
-						>
-							<label
-								className={tvc([
-									"text-sm",
-									"font-medium",
-								])}
-								htmlFor={field.name}
-							>
-								Nickname
-							</label>
-							<input
-								id={field.name}
-								className={tvc([
-									"w-full",
-									"rounded-xl",
-									"border",
-									"border-zinc-200",
-									"bg-white",
-									"px-4",
-									"py-2",
-									"text-sm",
-									"text-zinc-900",
-									"outline-none",
-									"transition",
-									"focus:border-zinc-400",
-									"focus:ring-2",
-									"focus:ring-zinc-200",
-								])}
-								value={field.state.value}
-								onChange={(event) =>
-									field.handleChange(event.target.value)
-								}
-								onBlur={() => field.handleBlur()}
-								placeholder="Jane Doe"
-								autoComplete="name"
-							/>
-							{field.state.meta.errors[0] ? (
-								<div
-									className={tvc([
-										"text-xs",
-										"text-red-500",
-									])}
-								>
-									{String(field.state.meta.errors[0].message)}
-								</div>
-							) : null}
-						</div>
+						<FormField
+							label="Nickname"
+							field={field}
+							input={(props) => (
+								<input
+									{...props}
+									id={field.name}
+									value={field.state.value}
+									onChange={(event) => {
+										field.handleChange(event.target.value);
+									}}
+									onBlur={() => field.handleBlur()}
+									placeholder="Jane Doe"
+									autoComplete="name"
+								/>
+							)}
+						/>
 					)}
 				</Field>
 
 				<Field name="email">
 					{(field) => (
-						<div
-							className={tvc([
-								"space-y-2",
-							])}
-						>
-							<label
-								className={tvc([
-									"text-sm",
-									"font-medium",
-								])}
-								htmlFor={field.name}
-							>
-								Email
-							</label>
-							<input
-								id={field.name}
-								type="email"
-								className={tvc([
-									"w-full",
-									"rounded-xl",
-									"border",
-									"border-zinc-200",
-									"bg-white",
-									"px-4",
-									"py-2",
-									"text-sm",
-									"text-zinc-900",
-									"outline-none",
-									"transition",
-									"focus:border-zinc-400",
-									"focus:ring-2",
-									"focus:ring-zinc-200",
-								])}
-								value={field.state.value}
-								onChange={(event) =>
-									field.handleChange(event.target.value)
-								}
-								onBlur={() => field.handleBlur()}
-								placeholder="jane@example.com"
-								autoComplete="email"
-							/>
-							{field.state.meta.errors[0] ? (
-								<div
-									className={tvc([
-										"text-xs",
-										"text-red-500",
-									])}
-								>
-									{String(field.state.meta.errors[0].message)}
-								</div>
-							) : null}
-						</div>
+						<FormField
+							label="Email"
+							field={field}
+							input={(props) => (
+								<input
+									{...props}
+									id={field.name}
+									type="email"
+									value={field.state.value}
+									onChange={(event) => {
+										field.handleChange(event.target.value);
+									}}
+									onBlur={() => field.handleBlur()}
+									placeholder="jane@example.com"
+									autoComplete="email"
+								/>
+							)}
+						/>
 					)}
 				</Field>
 
 				<Field name="password">
 					{(field) => (
-						<div
-							className={tvc([
-								"space-y-2",
-							])}
-						>
-							<label
-								className={tvc([
-									"text-sm",
-									"font-medium",
-								])}
-								htmlFor={field.name}
-							>
-								Password
-							</label>
-							<input
-								id={field.name}
-								type="password"
-								className={tvc([
-									"w-full",
-									"rounded-xl",
-									"border",
-									"border-zinc-200",
-									"bg-white",
-									"px-4",
-									"py-2",
-									"text-sm",
-									"text-zinc-900",
-									"outline-none",
-									"transition",
-									"focus:border-zinc-400",
-									"focus:ring-2",
-									"focus:ring-zinc-200",
-								])}
-								value={field.state.value}
-								onChange={(event) =>
-									field.handleChange(event.target.value)
-								}
-								onBlur={() => field.handleBlur()}
-								placeholder="••••••••"
-								autoComplete="new-password"
-							/>
-							{field.state.meta.errors[0] ? (
-								<div
-									className={tvc([
-										"text-xs",
-										"text-red-500",
-									])}
-								>
-									{String(field.state.meta.errors[0].message)}
-								</div>
-							) : null}
-						</div>
+						<FormField
+							label="Password"
+							field={field}
+							input={(props) => (
+								<input
+									{...props}
+									id={field.name}
+									type="password"
+									value={field.state.value}
+									onChange={(event) => {
+										field.handleChange(event.target.value);
+									}}
+									onBlur={() => field.handleBlur()}
+									placeholder="••••••••"
+									autoComplete="new-password"
+								/>
+							)}
+						/>
 					)}
 				</Field>
 
 				<Field name="password2">
 					{(field) => (
-						<div
-							className={tvc([
-								"space-y-2",
-							])}
-						>
-							<label
-								className={tvc([
-									"text-sm",
-									"font-medium",
-								])}
-								htmlFor={field.name}
-							>
-								Confirm password
-							</label>
-							<input
-								id={field.name}
-								type="password"
-								className={tvc([
-									"w-full",
-									"rounded-xl",
-									"border",
-									"border-zinc-200",
-									"bg-white",
-									"px-4",
-									"py-2",
-									"text-sm",
-									"text-zinc-900",
-									"outline-none",
-									"transition",
-									"focus:border-zinc-400",
-									"focus:ring-2",
-									"focus:ring-zinc-200",
-								])}
-								value={field.state.value}
-								onChange={(event) =>
-									field.handleChange(event.target.value)
-								}
-								onBlur={() => field.handleBlur()}
-								placeholder="••••••••"
-								autoComplete="new-password"
-							/>
-							{field.state.meta.errors[0] ? (
-								<div
-									className={tvc([
-										"text-xs",
-										"text-red-500",
-									])}
-								>
-									{String(field.state.meta.errors[0].message)}
-								</div>
-							) : null}
-						</div>
+						<FormField
+							label="Confirm password"
+							field={field}
+							input={(props) => (
+								<input
+									{...props}
+									id={field.name}
+									type="password"
+									value={field.state.value}
+									onChange={(event) => {
+										field.handleChange(event.target.value);
+									}}
+									onBlur={() => field.handleBlur()}
+									placeholder="••••••••"
+									autoComplete="new-password"
+								/>
+							)}
+						/>
 					)}
 				</Field>
 
