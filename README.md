@@ -1,36 +1,19 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Elasticle
 
-## Getting Started
+Interview round project - you can see it running on
+https://elasticle.zbav-se.me
 
-First, run the development server:
+I've used my domain - when you finish, I'll shut id down.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Some notes:
+- Running on Vercel
+- When doing production build and deployment, I would use CDN for static assets
+    - In our region and due to good pricing, Bunny.net (CND) and idrivee2.com (S3 compatible storage) is quite a good option
+- The quest was to create user management - Clerk, 1M users for free
+    - Or Better Auth as it's somehow successor of next-auth/auth.js
+    - Manual login/session management _should not be done by a common dev_
+- I'm using cookies as they provide quite a good security instead of sending tokens (and storing) them around (e.g. in local storage - not secure)
+- Cross domain support is quite messy, but e.g. backend.example.com and example.com should have properly setup Allow Origin, so it's still OK
+- I'm used to Biome, but Next.js scaffolded eslint and teams are probably more used to it, so I won't change that one
+    - Biome is used only for formatting, Prettier feels quite lazy for me, but it's a preference
+- Migrations are unresolved in general - this can be done e.g. in an CI/CD action with access to DB and running prisma or whatever solution you're used to (e.g. I'm using Kysely TS migrations, so I can run arbitrary code - for example data based migrations or seeds)

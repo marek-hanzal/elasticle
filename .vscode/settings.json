@@ -1,0 +1,14 @@
+{
+	"cSpell.words": [
+		"Elasticle"
+	],
+	"editor.codeActionsOnSave": {
+		"source.organizeImports.biome": "always",
+		"source.fixAll.biome": "explicit",
+		"source.removeUnusedImports": "always"
+	},
+	"editor.defaultFormatter": "biomejs.biome",
+	"files.trimFinalNewlines": true,
+	"editor.formatOnSave": true,
+	"biome.requireConfiguration": true
+}
