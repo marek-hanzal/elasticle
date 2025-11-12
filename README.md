@@ -68,6 +68,16 @@ Nope - I just want give a limited time to the implementation, so I've been only 
 
 I've experience with mobile-only app, just the hybrid approach ("responsive") is not theme for me now.
 
+## Editor
+
+I've picked up Lexical (I've used it before):
+- instead of relaying on some pseudo "security", I'm storing whole editor state
+- render just uses editor state, so we do not parse any user's input, only "AST" from the editor
+
+## CLS
+
+I was lazy to strip off all the stuff from Editor, so I've pulled a bit from CLS library for styling, which stands out of "common" styling in this project. In normal circumstances I would use unified approach.
+
 ### Design
 
 I'm backend guy by my origin - I can do styling, but here it was lower prio as I'm a bit _weaker_ in making cool and nice UI's - in contrast, I've _experience with UX_, but make things nice takes more time for me.
