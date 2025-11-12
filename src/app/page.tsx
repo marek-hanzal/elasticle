@@ -1,33 +1,109 @@
+import Link from "next/link";
 import { tvc } from "@/lib/tvc";
 
 export default function Home() {
 	return (
-		<div
+		<main
 			className={tvc([
 				"flex",
 				"min-h-screen",
 				"items-center",
 				"justify-center",
 				"bg-zinc-50",
-				"font-sans",
+				"py-24",
+				"px-6",
 			])}
 		>
 			<div
 				className={tvc([
-					"flex",
-					"min-h-screen",
 					"w-full",
 					"max-w-3xl",
-					"flex-col",
-					"items-center",
-					"justify-between",
-					"py-32",
-					"px-16",
+					"rounded-3xl",
+					"border",
+					"border-zinc-200",
 					"bg-white",
+					"p-12",
+					"shadow-sm",
+					"space-y-8",
+					"text-center",
 				])}
 			>
-				Bello! - just testing deployment
+				<div
+					className={tvc([
+						"space-y-4",
+					])}
+				>
+					<h1
+						className={tvc([
+							"text-3xl",
+							"font-semibold",
+							"text-zinc-900",
+						])}
+					>
+						Welcome to Elasticle
+					</h1>
+					<p
+						className={tvc([
+							"text-sm",
+							"text-zinc-600",
+						])}
+					>
+						Just some lorem ipsum for this landing page. Tadaa
+					</p>
+				</div>
+
+				<div
+					className={tvc([
+						"flex",
+						"flex-col",
+						"items-center",
+						"gap-3",
+						"sm:flex-row",
+						"sm:justify-center",
+					])}
+				>
+					<Link
+						className={tvc([
+							"inline-flex",
+							"items-center",
+							"justify-center",
+							"rounded-xl",
+							"bg-zinc-900",
+							"px-6",
+							"py-2.5",
+							"text-sm",
+							"font-medium",
+							"text-white",
+							"transition",
+							"hover:bg-zinc-800",
+						])}
+						href="/public/login"
+					>
+						Login
+					</Link>
+					<Link
+						className={tvc([
+							"inline-flex",
+							"items-center",
+							"justify-center",
+							"rounded-xl",
+							"border",
+							"border-zinc-200",
+							"px-6",
+							"py-2.5",
+							"text-sm",
+							"font-medium",
+							"text-zinc-700",
+							"transition",
+							"hover:border-zinc-300",
+							"hover:text-zinc-900",
+						])}
+						href="/public/register"
+					>
+						Register
+					</Link>
+				</div>
 			</div>
-		</div>
+		</main>
 	);
 }

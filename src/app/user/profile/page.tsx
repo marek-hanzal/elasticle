@@ -176,31 +176,33 @@ export default async function ProfilePage() {
 					}
 				/>
 
-				<Link
-					className={tvc([
-						"absolute",
-						"right-4",
-						"top-4",
-						"inline-flex",
-						"items-center",
-						"rounded-lg",
-						"border",
-						"border-zinc-200",
-						"bg-white/80",
-						"px-3",
-						"py-1.5",
-						"text-xs",
-						"font-medium",
-						"text-zinc-700",
-						"backdrop-blur-sm",
-						"transition",
-						"hover:border-zinc-300",
-						"hover:text-zinc-900",
-					])}
-					href={"/user/profile/edit/bio"}
-				>
-					Edit bio
-				</Link>
+				{profile?.id ? (
+					<Link
+						className={tvc([
+							"absolute",
+							"right-4",
+							"top-4",
+							"inline-flex",
+							"items-center",
+							"rounded-lg",
+							"border",
+							"border-zinc-200",
+							"bg-white/80",
+							"px-3",
+							"py-1.5",
+							"text-xs",
+							"font-medium",
+							"text-zinc-700",
+							"backdrop-blur-sm",
+							"transition",
+							"hover:border-zinc-300",
+							"hover:text-zinc-900",
+						])}
+						href={"/user/profile/edit/bio"}
+					>
+						Edit bio
+					</Link>
+				) : null}
 			</div>
 		</div>
 	);
