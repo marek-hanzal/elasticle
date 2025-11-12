@@ -8,6 +8,7 @@ export const ProfilePatchSchema = z.object({
 		.string()
 		.min(1, "Please enter your surname.")
 		.transform(trimString),
+	photo: z.url().nullish(),
 	birthday: z
 		.string()
 		.min(1, "Please enter your birthday.")

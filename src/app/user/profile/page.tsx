@@ -109,6 +109,29 @@ export default async function ProfilePage() {
 					Review and verify the data we have on file for your account.
 				</div>
 			</div>
+			{profile?.photo ? (
+				<div
+					className={tvc([
+						"flex",
+						"justify-center",
+					])}
+				>
+					<img
+						className={tvc([
+							"h-32",
+							"w-32",
+							"rounded-full",
+							"border",
+							"border-zinc-200",
+							"object-cover",
+							"shadow-sm",
+						])}
+						src={profile.photo}
+						alt={`${profile.name ?? user.name ?? "User"}'s profile photo`}
+						loading="lazy"
+					/>
+				</div>
+			) : null}
 			<div
 				className={tvc([
 					"space-y-4",

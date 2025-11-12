@@ -5,6 +5,7 @@ import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";
 import type { FC } from "react";
 import { toast } from "sonner";
+import z from "zod";
 import { useProfilePatchMutation } from "@/lib/mutation/useProfilePatchMutation";
 import { ProfilePatchSchema } from "@/lib/schema/ProfilePatchSchema";
 import { tvc } from "@/lib/tvc";
@@ -15,6 +16,20 @@ export namespace ProfilePatchForm {
 		defaultValues: ProfilePatchSchema.Type;
 	}
 }
+
+const ProfilePatchFormSchema = ProfilePatchSchema.extend({
+	photoFile: z
+		.instanceof(File, {
+			message: "Please select an image file.",
+		})
+		.or(z.null())
+		.optional(),
+});
+
+export namespace ProfilePatchFormSchema {
+	export type Type = z.infer<typeof ProfilePatchFormSchema>;
+}
+
 export const ProfilePatchForm: FC<ProfilePatchForm.Props> = ({
 	defaultValues,
 }) => {
@@ -25,12 +40,13 @@ export const ProfilePatchForm: FC<ProfilePatchForm.Props> = ({
 	const form = useForm({
 		defaultValues: {
 			...defaultValues,
+			photoFile: null,
 			birthday: DateTime.fromISO(defaultValues.birthday).toFormat(
 				"yyyy-MM-dd",
 			),
-		},
+		} satisfies ProfilePatchFormSchema.Type as ProfilePatchFormSchema.Type,
 		validators: {
-			onSubmit: ProfilePatchSchema,
+			onSubmit: ProfilePatchFormSchema,
 		},
 		async onSubmit({ value }) {
 			const result = profilePatchMutation.mutateAsync(value);
@@ -40,6 +56,8 @@ export const ProfilePatchForm: FC<ProfilePatchForm.Props> = ({
 				success: "Your profile has been saved.",
 				error: "Unable to save your profile. Please try again.",
 			});
+
+			await result;
 
 			router.push("/user/profile");
 		},
@@ -93,6 +111,47 @@ export const ProfilePatchForm: FC<ProfilePatchForm.Props> = ({
 								onBlur={() => field.handleBlur()}
 								autoComplete="family-name"
 							/>
+						)}
+						field={field}
+					/>
+				)}
+			</Field>
+
+			<Field name="photoFile">
+				{(field) => (
+					<FormField
+						label="Profile photo"
+						input={(props) => (
+							<div
+								className={tvc([
+									"space-y-2",
+								])}
+							>
+								<input
+									{...props}
+									id={field.name}
+									type="file"
+									accept="image/jpeg,image/png,image/webp"
+									onChange={(event) => {
+										field.handleChange(
+											event.target.files?.[0] ?? null,
+										);
+										event.target.value = "";
+									}}
+									onBlur={() => field.handleBlur()}
+								/>
+
+								{field.state.value ? (
+									<div
+										className={tvc([
+											"text-xs",
+											"text-zinc-500",
+										])}
+									>
+										{field.state.value.name}
+									</div>
+								) : null}
+							</div>
 						)}
 						field={field}
 					/>
